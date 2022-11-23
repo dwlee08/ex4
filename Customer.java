@@ -18,8 +18,6 @@ public class Customer {
 		return this.name;
 	}
 	
-	
-	
 	public String statement() {
 		String rentalList = "Statement\n";
 		int totalAmount = 0;
@@ -30,7 +28,7 @@ public class Customer {
 			lineAmount = rent.calculateLineAmount();
 			bonusPoints += rent.calculateBonusPoints();
 
-			rentalList += rent.getMovie().getName() + "\t" + String.valueOf(lineAmount) + "\n";			
+			rentalList += rent.getMovieName() + "\t" + String.valueOf(lineAmount) + "\n";			
 			totalAmount += lineAmount;
 		}
 

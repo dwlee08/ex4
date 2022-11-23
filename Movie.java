@@ -50,6 +50,7 @@ public class Movie {
 		this.priceType = createPriceTypeFromLegacyPriceCode(legacyPriceCode);
 	}
 	
+
 	public int calculateBonus(int daysRented) {	
 		return priceType.calculateBonus(daysRented);
 	}
@@ -58,3 +59,4 @@ public class Movie {
 		return priceType.calculatePrice(daysRented);
 	}
 }
+

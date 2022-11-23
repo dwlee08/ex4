@@ -22,15 +22,15 @@ public class Rental {
 	public int getDaysRented() {
 		return this.daysRented;
 	}
-	public Movie getMovie() {
-		return this.movie;
+	public String getMovieName() {
+		return movie.getName();
 	}
 	
 	public int calculateBonusPoints() {	
-		return movie.getPriceType().calculateBonus(daysRented);
+		return movie.calculateBonus(daysRented);
 	}
 	
 	public int calculateLineAmount() {
-		return movie.getPriceType().calculatePrice(daysRented);
+		return movie.calculatePrice(daysRented);
 	}
 }
