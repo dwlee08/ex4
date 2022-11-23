@@ -19,34 +19,14 @@ public class Customer {
 	}
 	
 	public int calculateBonusPoints(Rental rent) {	
-		if((rent.getMovie().getPriceCode() == Movie.RELEASE)
-				&& (rent.getDaysRented() > 1))
-			return 2;
-		
-		return 1;
+		return rent.getMovie().getPriceType().calculateBonus(rent.getDaysRented());
 	}
 	
 	public int calculateLineAmount(Rental rent) {
 		int lineAmount = 0;
 		
-		switch(rent.getMovie().getPriceCode()) {
-		case Movie.REGULAR:
-			lineAmount += 2000;
-			if(rent.getDaysRented() > 2) {
-				lineAmount += (rent.getDaysRented() - 2) * 1500;
-			}
-			break;
-		case Movie.CLASSIC:
-			lineAmount += 1500;
-			if(rent.getDaysRented() > 3) {
-				lineAmount += (rent.getDaysRented() - 3) * 1500;
-			}
-			break;
-		case Movie.RELEASE:
-			lineAmount += (rent.getDaysRented() * 3000);
-			break;
-		}
-		
+		lineAmount = rent.getMovie().getPriceType().calculatePrice(rent.getDaysRented());
+
 		return lineAmount;
 	}
 	

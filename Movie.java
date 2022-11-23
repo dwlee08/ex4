@@ -6,25 +6,55 @@ public class Movie {
 	public static final int RELEASE = 2;
 
 	private String name;
-	private int priceCode;
+	private MoviePriceType priceType;
 
 	public Movie() {
 	}
 
-	public Movie(String name, int priceCode) {
+	private MoviePriceType createPriceTypeFromLegacyPriceCode(int priceCode) {
+		switch (priceCode) {
+		case REGULAR:
+			return new RegularMoviePriceType();
+		case CLASSIC:
+			return new ClassicMoviePriceType();
+		case RELEASE:
+			return new ReleaseMoviePriceType();
+		default:
+			return null;
+		} 
+	}
+
+	public Movie(String name, int legacyPriceCode) {
 		this.name = name;
-		this.priceCode = priceCode;
+		this.priceType = createPriceTypeFromLegacyPriceCode(legacyPriceCode);
+	}
+
+	public Movie(String name, MoviePriceType priceType) {
+		this.name = name;
+		this.priceType = priceType;
 	}
 
 	public String getName() {
 		return this.name;
 	}
 
-	public int getPriceCode() {
-		return this.priceCode;
+	public MoviePriceType getPriceType() {
+		return this.priceType;
 	}
-
-	public void setPriceCode(int priceCode) {
-		this.priceCode = priceCode;
+	
+	public void setPriceType(MoviePriceType priceType) {
+		this.priceType = priceType;
+	}
+	
+	public void setPriceType(int legacyPriceCode) {
+		this.priceType = createPriceTypeFromLegacyPriceCode(legacyPriceCode);
+	}
+	
+	public int calculateBonus(int daysRented) {	
+		return priceType.calculateBonus(daysRented);
+	}
+	
+	public int calculatePrice(int daysRented) {
+		return priceType.calculatePrice(daysRented);
 	}
 }
