@@ -18,17 +18,7 @@ public class Customer {
 		return this.name;
 	}
 	
-	public int calculateBonusPoints(Rental rent) {	
-		return rent.getMovie().getPriceType().calculateBonus(rent.getDaysRented());
-	}
 	
-	public int calculateLineAmount(Rental rent) {
-		int lineAmount = 0;
-		
-		lineAmount = rent.getMovie().getPriceType().calculatePrice(rent.getDaysRented());
-
-		return lineAmount;
-	}
 	
 	public String statement() {
 		String rentalList = "Statement\n";
@@ -37,8 +27,8 @@ public class Customer {
 		int lineAmount = 0;
 		
 		for(Rental rent:rentals) {
-			lineAmount = calculateLineAmount(rent);
-			bonusPoints += calculateBonusPoints(rent);
+			lineAmount = rent.calculateLineAmount();
+			bonusPoints += rent.calculateBonusPoints();
 
 			rentalList += rent.getMovie().getName() + "\t" + String.valueOf(lineAmount) + "\n";			
 			totalAmount += lineAmount;

@@ -25,4 +25,12 @@ public class Rental {
 	public Movie getMovie() {
 		return this.movie;
 	}
+	
+	public int calculateBonusPoints() {	
+		return movie.getPriceType().calculateBonus(daysRented);
+	}
+	
+	public int calculateLineAmount() {
+		return movie.getPriceType().calculatePrice(daysRented);
+	}
 }
