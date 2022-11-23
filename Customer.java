@@ -18,6 +18,14 @@ public class Customer {
 		return this.name;
 	}
 	
+	public int calculateBonusPoints(Rental rent) {	
+		if((rent.getMovie().getPriceCode() == Movie.RELEASE)
+				&& (rent.getDaysRented() > 1))
+			return 2;
+		
+		return 1;
+	}
+	
 	public int calculateLineAmount(Rental rent) {
 		int lineAmount = 0;
 		
@@ -50,10 +58,7 @@ public class Customer {
 		
 		for(Rental rent:rentals) {
 			lineAmount = calculateLineAmount(rent);
-
-			bonusPoints++;
-			if((rent.getMovie().getPriceCode() == Movie.RELEASE)
-					&& (rent.getDaysRented() > 1)) bonusPoints++;
+			bonusPoints += calculateBonusPoints(rent);
 
 			rentalList += rent.getMovie().getName() + "\t" + String.valueOf(lineAmount) + "\n";			
 			totalAmount += lineAmount;
