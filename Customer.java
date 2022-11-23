@@ -18,22 +18,39 @@ public class Customer {
 		return this.name;
 	}
 	
+	private int getTotalAmount() {
+		int totalAmount = 0;
+		
+		for (Rental rent:rentals)
+			totalAmount += rent.calculateLineAmount();
+		
+		return totalAmount;
+	}
+	
+	private int getTotalBonus() {
+		int totalBonus = 0;
+		
+		for (Rental rent:rentals)
+			totalBonus += rent.calculateBonusPoints();
+		
+		return totalBonus;
+	}
+	
+	private String createMovieStatement() {
+		String rentalList = "";
+		
+		for (Rental rent:rentals)
+			rentalList += rent.getMovieName() + "\t" + rent.calculateLineAmount() + "\n";
+		
+		return rentalList;
+	}
+	
 	public String statement() {
 		String rentalList = "Statement\n";
-		int totalAmount = 0;
-		int bonusPoints = 0;
-		int lineAmount = 0;
 		
-		for(Rental rent:rentals) {
-			lineAmount = rent.calculateLineAmount();
-			bonusPoints += rent.calculateBonusPoints();
-
-			rentalList += rent.getMovieName() + "\t" + String.valueOf(lineAmount) + "\n";			
-			totalAmount += lineAmount;
-		}
-
-		rentalList += "Total\t" + String.valueOf(totalAmount) + "\n";
-		rentalList += "Bonus Point:\t" + String.valueOf(bonusPoints) + "\n";
+		rentalList += createMovieStatement();
+		rentalList += "Total\t" + String.valueOf(getTotalAmount()) + "\n";
+		rentalList += "Bonus Point:\t" + String.valueOf(getTotalBonus()) + "\n";
 		return rentalList;
 	}
 }
